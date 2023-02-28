@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .film {
+            display: flex;
+            flex-direction: column;
+            border: 2px solid black;
+            padding-left: 5px;
+        }
+        .film__items {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 20px;
+        }
+        .film__description {
+            width: 350px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content"></div>
+    <script src="data.js"></script>
+    <script>
+// Задание 2
+// 1. Создать файл index.html.
+// 2. Подключить data.js.
+// 3. Сформировать контент из данных (картинка загловок и параграф).
+// 4. Добавить данный контент в вёрстку.
+// 5. * Добавить стили при необходимости (по желанию).
+    const filmsData = JSON.parse(dataInfo);
+    const contentEl = document.querySelector('.content');
+
+    for (const key in filmsData) {
+    const filmEl = document.createElement('div');
+    filmEl.classList.add('film');
+    const titlesEl = document.createElement('div');
+    titlesEl.classList.add('film__titles');
+
+    const titleEl = document.createElement('h3');
+    titleEl.textContent = filmsData[key].attributes.titles.en;
+
+    const titleJpEl = document.createElement('p');
+    titleJpEl.textContent = filmsData[key].attributes.titles.en_jp;
+
+    const filmItems = document.createElement('div');
+    filmItems.classList.add('film__items');
+    const imgEl = document.createElement('img');
+    imgEl.setAttribute('alt', 'poster');
+    imgEl.src = filmsData[key].attributes.posterImage.small;
+    
+    const filmInfo = document.createElement('div');
+    filmInfo.classList.add('film__description');
+    const synopsisEl = document.createElement('p');
+    synopsisEl.textContent = `Description: ${filmsData[key].attributes.synopsis}`;
+    const averageRatingEl = document.createElement('p');
+    averageRatingEl.textContent = `Rating: ${filmsData[key].attributes.averageRating}`;
+    const startDateEl = document.createElement('p');
+    startDateEl.textContent = `Start date: ${filmsData[key].attributes.startDate}`;
+    const endDateEl = document.createElement('p');
+    endDateEl.textContent = `End date: ${filmsData[key].attributes.endDate}`;
+    const episodeCountEl = document.createElement('p');
+    episodeCountEl.textContent = `Count of episodes: ${filmsData[key].attributes.episodeCount}`;
+
+    filmInfo.appendChild(synopsisEl);
+    filmInfo.appendChild(averageRatingEl);
+    filmInfo.appendChild(startDateEl);
+    filmInfo.appendChild(endDateEl);
+    filmInfo.appendChild(episodeCountEl);
+    filmItems.appendChild(imgEl);
+    filmItems.appendChild(filmInfo);
+    titlesEl.appendChild(titleEl);
+    titlesEl.appendChild(titleJpEl);
+    filmEl.appendChild(titlesEl);
+    filmEl.appendChild(filmItems);
+    contentEl.appendChild(filmEl);    
+};
+    </script>
+</body>
+</html>
